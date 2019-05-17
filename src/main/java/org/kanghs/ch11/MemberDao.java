@@ -34,4 +34,9 @@ public interface MemberDao {
 	 * 회원 수
 	 */
 	int countAll();
+	
+	/**
+	 * 이메일과 비밀번호로 멤버 가져오기. 로그인 할 때 사용한다.
+	 */
+	public Member selectByLogin(String email, String password);
 }
