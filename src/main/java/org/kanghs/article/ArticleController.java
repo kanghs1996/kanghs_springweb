@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.kanghs.ch11.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArticleController {
 	@Autowired
 	ArticleDao articleDao;
+
+	Logger logger = LogManager.getLogger();
 
 	/**
 	 * 글 목록
@@ -49,6 +54,11 @@ public class ArticleController {
 	 */
 	@GetMapping("/article/addForm")
 	public String articleAddForm(HttpSession session) {
+		Object memberObj = session.getAttribute("MEMBER");
+		if (memberObj == null)
+			// 세션에 MEMBER가 없을 경우 로그인 화면으로
+			return "login/loginForm";
+
 		return "article/addForm";
 	}
 
@@ -57,8 +67,15 @@ public class ArticleController {
 	 */
 	@PostMapping("/article/add")
 	public String articleAdd(Article article, HttpSession session) {
-		article.setUserId("2015041058");
-		article.setName("강현수");
+		// 세션에 MEMBER가 없을 경우 로그인 화면으로
+		Object memberObj = session.getAttribute("MEMBER");
+		if (memberObj == null)
+			// 세션에 MEMBER가 없을 경우 로그인 화면으로
+			return "login/loginForm";
+
+		Member member = (Member) memberObj;
+		article.setUserId(member.getMemberId());
+		article.setName(member.getName());
 		articleDao.addArticle(article);
 		return "redirect:/app/article/list";
 	}
