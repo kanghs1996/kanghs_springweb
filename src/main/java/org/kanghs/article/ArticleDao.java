@@ -73,5 +73,5 @@ public class ArticleDao {
 	 */
 	public int deleteArticle(String articleId, String userId) {
 		return jdbcTemplate.update(DELETE_ARTICLE, articleId, userId);
-}
+	}
 }

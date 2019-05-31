@@ -22,6 +22,8 @@
 				<td>이메일</td>
 				<td>이름</td>
 				<td>등록일시</td>
+				<td>편지쓰기</td>
+				<td>목록</td>				
 			</tr>
 		</thead>
 		<tbody>
@@ -31,6 +33,9 @@
 					<td>${member.email }</td>
 					<td>${member.name }</td>
 					<td>${member.cdate }</td>
+					<td><a href="./app/letter/addForm?receiverId=${member.memberId }&receiverName=${member.name }">편지쓰기</a></td>
+					<td><a href="./app/letter/listOfReceiver?receiverId=${member.memberId }&receiverName=${member.name }">받은목록</a>
+					<a href="./app/letter/listOfSender?senderId=${member.memberId }&senderName=${member.name }">보낸목록</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
