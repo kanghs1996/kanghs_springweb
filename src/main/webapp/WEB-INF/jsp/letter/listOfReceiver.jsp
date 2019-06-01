@@ -21,6 +21,7 @@ th {
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	<h2>받은목록</h2>
 	<table>
 		<thead>
@@ -32,7 +33,7 @@ th {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="letter" items="${letterList}">
+			<c:forEach var="letter" items="${letters}">
 				<tr>
 					<td><a href="./app/letter/view?letterId=${letter.letterId }">${letter.letterId }</a></td>
 					<td><a href="./app/letter/view?letterId=${letter.letterId }">${letter.title }</a></td>

@@ -9,6 +9,7 @@
 <title>회원 목록</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	<p>전체 ${totalCount }건</p>
 	<form action="./app/members">
 		<input type="number" name="page" value="${param.page }" placeholder="페이지"
@@ -34,8 +35,10 @@
 					<td>${member.name }</td>
 					<td>${member.cdate }</td>
 					<td><a href="./app/letter/addForm?receiverId=${member.memberId }&receiverName=${member.name }">편지쓰기</a></td>
-					<td><a href="./app/letter/listOfReceiver?receiverId=${member.memberId }&receiverName=${member.name }">받은목록</a>
-					<a href="./app/letter/listOfSender?senderId=${member.memberId }&senderName=${member.name }">보낸목록</a></td>
+					<c:if test="${member.memberId == sessionScope.MEMBER.memberId }">
+						<td><a href="./app/letter/listOfReceiver?receiverId=${member.memberId }">받은목록</a>
+						<a href="./app/letter/listOfSender?senderId=${member.memberId }">보낸목록</a></td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
